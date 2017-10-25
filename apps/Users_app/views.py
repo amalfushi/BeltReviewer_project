@@ -36,13 +36,14 @@ def logout(request):
     return redirect('/')
 
 ############################################  Specific User Page  ############################
-def getUser(request, userID):
+def getUser(request, getID):
+    tempUser = User.objects.get(id = getID)
     context ={
-        'alias': request.session['alias'],
-        'name': request.session['name'],
-        'email': request.session['email'],
-        'reviews': User.objects.get(id=userID).reviews.all(),
-        'count': len(User.objects.get(id=userID).reviews.all()),
+        'alias': tempUser.alias,
+        'name': tempUser.name,
+        'email': tempUser.email,
+        'reviews': User.objects.get(id=getID).reviews.all(),
+        'count': len(User.objects.get(id=getID).reviews.all()),
     }
     return render(request, 'Users_app/users.html', context)
 
